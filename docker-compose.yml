@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./:/app
+    command: ["python", "run.py"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; socket.create_connection(('telegram.org', 443), timeout=5)"]
+      interval: 1m
+      timeout: 10s
+      retries: 3

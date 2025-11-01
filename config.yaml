@@ -1,0 +1,50 @@
+general:
+  base_timeframe: "1h"
+  prediction_horizon_bars: 3
+  max_open_positions: 2
+  paper_trading: true
+
+risk:
+  risk_per_trade_pct: 1.0
+  max_daily_loss_pct: 5.0
+  sl_atr_mult: 1.5
+  tp_rr: 2.0
+  trailing_atr_mult: 1.0
+  leverage_cap: 3.0
+
+markets:
+  - symbol: "BTC/USDT"
+    venue: "ccxt"
+    exchange: "binance"
+    trade: true
+    contract_type: "spot"
+  - symbol: "ETH/USDT"
+    venue: "ccxt"
+    exchange: "binance"
+    trade: false
+    contract_type: "spot"
+  - symbol: "XAU_USD"
+    venue: "oanda"
+    trade: true
+
+ml:
+  use_model: true
+  model_type: "lightgbm"  # lightgbm | rl
+  probability_threshold: 0.55
+  model_path: "models/lightgbm_default.txt"
+
+rl:
+  enabled: false
+  algo: "ppo"  # ppo | dqn
+  total_timesteps: 200000
+  env_window: 48
+  reward: "equity"
+  slippage_bps: 2
+  commission_bps: 5
+  model_path: "models/rl/latest.zip"
+
+execution:
+  allow_market_orders: true
+  allow_reduce_only: true
+  slippage_bps: 2
+  heartbeat_seconds: 60
